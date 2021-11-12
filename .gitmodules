@@ -1,0 +1,8 @@
+[submodule "framework1"]
+	path = framework1
+	url = https://github.com/babithashettyk/framework1.git
+	branch = test
+[submodule "framework2"]
+	path = framework2
+	url = https://github.com/babithashettyk/framework2.git
+	branch = development
