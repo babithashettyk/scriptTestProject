@@ -36,7 +36,7 @@ if [ "$(ls -A ${submoduleList[0]})" ]; then
             echo "Your submodule is up to date"
         else
             echo "Your submodule is not up to  date"
-            git pull
+            git pull --all
         fi
         cd ..
     done
