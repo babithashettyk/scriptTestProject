@@ -17,7 +17,7 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
      cd ./${submoduleList[$each]}
      git checkout development
      cd ..
-else
+fi
     echo "submodule is already checked out"
 
 #check the current working branch of each of the submodule
@@ -58,4 +58,4 @@ else
         cd ..
     done
 
-fi
+
