@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7958564727422508005F3059 /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
 		795856492742251A005F3059 /* framework1.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		795C0B4A27424459007258FD /* prebuildScript.sh in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C0B4827424459007258FD /* prebuildScript.sh */; };
 		79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */; };
 		79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F17273E1B6700FEDD54 /* ViewController.swift */; };
 		79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CA7F19273E1B6800FEDD54 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		7958563A274224C7005F3059 /* framework1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = framework1.xcodeproj; path = ../../framework1/framework1/framework1.xcodeproj; sourceTree = "<group>"; };
+		795C0B4827424459007258FD /* prebuildScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = prebuildScript.sh; path = ../prebuildScript.sh; sourceTree = "<group>"; };
 		79CA7F12273E1B6700FEDD54 /* scriptTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scriptTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79CA7F17273E1B6700FEDD54 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				795C0B4A27424459007258FD /* prebuildScript.sh in Frameworks */,
 				7958564727422508005F3059 /* framework1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +90,7 @@
 		7958564627422508005F3059 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				795C0B4827424459007258FD /* prebuildScript.sh */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
