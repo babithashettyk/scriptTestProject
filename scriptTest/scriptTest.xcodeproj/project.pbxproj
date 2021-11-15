@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7958564727422508005F3059 /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
+		798B8017274265A000290C6C /* framework1.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */; };
 		79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F17273E1B6700FEDD54 /* ViewController.swift */; };
 		79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CA7F19273E1B6800FEDD54 /* Assets.xcassets */; };
@@ -37,6 +38,19 @@
 			remoteInfo = framework1Tests;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		798B80152742656F00290C6C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				798B8017274265A000290C6C /* framework1.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		7958563A274224C7005F3059 /* framework1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = framework1.xcodeproj; path = ../../framework1/framework1/framework1.xcodeproj; sourceTree = "<group>"; };
@@ -120,6 +134,7 @@
 				79CA7F0E273E1B6700FEDD54 /* Sources */,
 				79CA7F0F273E1B6700FEDD54 /* Frameworks */,
 				79CA7F10273E1B6700FEDD54 /* Resources */,
+				798B80152742656F00290C6C /* CopyFiles */,
 			);
 			buildRules = (
 			);
