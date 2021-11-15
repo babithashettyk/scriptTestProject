@@ -47,10 +47,3 @@ else
      git checkout development
      cd ..
 fi
-xcode_version="Xcode-beta"
-
-killall Xcode 2> /dev/null
-sleep 1
-open "/Applications/$xcode_version.app"
-
-
