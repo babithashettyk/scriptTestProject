@@ -14,6 +14,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         TestClass.testFive()
         TestClass.testSix()
+        TestClass.testThree()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
