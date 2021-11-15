@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		7958564727422508005F3059 /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
 		795856492742251A005F3059 /* framework1.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		795C0B4A27424459007258FD /* prebuildScript.sh in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C0B4827424459007258FD /* prebuildScript.sh */; };
 		79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */; };
 		79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F17273E1B6700FEDD54 /* ViewController.swift */; };
 		79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CA7F19273E1B6800FEDD54 /* Assets.xcassets */; };
@@ -70,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				795C0B4A27424459007258FD /* prebuildScript.sh in Frameworks */,
 				7958564727422508005F3059 /* framework1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,7 +131,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79CA7F22273E1B6800FEDD54 /* Build configuration list for PBXNativeTarget "scriptTest" */;
 			buildPhases = (
-				79131DBE27423C5100D83DB1 /* ShellScript */,
 				79CA7F0E273E1B6700FEDD54 /* Sources */,
 				79CA7F0F273E1B6700FEDD54 /* Frameworks */,
 				79CA7F10273E1B6700FEDD54 /* Resources */,
@@ -215,26 +212,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		79131DBE27423C5100D83DB1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "cd $SRCROOT\ncd ..\nsh ./prebuildScript.sh\n\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		79CA7F0E273E1B6700FEDD54 /* Sources */ = {
