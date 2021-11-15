@@ -10,12 +10,10 @@ import framework1
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    
-
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         TestClass.testFive()
+        TestClass.testSix()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
