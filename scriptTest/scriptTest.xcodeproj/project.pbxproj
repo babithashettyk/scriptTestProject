@@ -30,13 +30,6 @@
 			remoteGlobalIDString = 79CA7F38273E1B8C00FEDD54;
 			remoteInfo = framework1Tests;
 		};
-		79585643274224E8005F3059 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 79CA7F2E273E1B8C00FEDD54;
-			remoteInfo = framework1;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -138,7 +131,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				79585644274224E8005F3059 /* PBXTargetDependency */,
 			);
 			name = scriptTest;
 			productName = scriptTest;
@@ -243,14 +235,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		79585644274224E8005F3059 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = framework1;
-			targetProxy = 79585643274224E8005F3059 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		79CA7F1B273E1B6800FEDD54 /* Main.storyboard */ = {
