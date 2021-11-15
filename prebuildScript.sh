@@ -10,10 +10,9 @@ IFS=$'\n'
 submodulePathList=($(git config --file .gitmodules --get-regexp url | awk '{print $2}'))
 unset IFS
 
-#check if submodule is already checked out or no, if not checkout to the specified branch that you ant to keep track of
+#check if submodule is already checked out or no, if not checkout to the specified branch that you want to keep track of
 if [ "$(ls -A ${submoduleList[0]})" ]; then
     echo "submodule is already checked out"
-
 #check the current working branch of each of the submodule
     for each in "${!submoduleList[@]}"
     do
