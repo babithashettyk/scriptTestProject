@@ -46,7 +46,6 @@ if [ "$(ls -A ${submoduleList[0]})" ]; then
             fi
         cd ..
     done
-    exit 1
 else
     echo "submodule is not checked out"
      git submodule update --init --recursive
@@ -54,4 +53,3 @@ else
      git checkout development
      cd ..
 fi
-osascript -e 'display dialog "Quit xcode and reopen" buttons {"OK"}'
