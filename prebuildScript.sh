@@ -34,9 +34,26 @@ if [ "$(ls -A ${submoduleList[0]})" ]; then
         submoduleCurrentBranchRevision=($(git rev-parse @))
         if [ "$repoCurrentBranchRevision" == "$submoduleCurrentBranchRevision" ]; then
             echo "Your submodule is up to date"
+                    
         else
-            echo "Your submodule is not up to  date"
-            git pull --all
+#          button=$(/usr/bin/osascript -e 'set titleText to "submodule is not up to date"
+#            set dialogText to "Do you want to pull the changes from the submodule repo"
+#            display dialog dialogText with icon stop with title titleText')
+#            if [[ $button = "button returned:OK" ]]; then
+#                echo "pressed OK"
+#                git pull --all
+#            else
+#                echo "continue"
+#            fi
+                    SURETY="$(osascript -e 'display dialog "Your submodule is not up to date. Do you ant to pull the changes?" buttons {"Yes", "No"} ')"
+
+                        if [ "$SURETY" = "button returned:Yes" ]; then
+                            echo "Yes, continue with partition."
+                            git pull --all
+                        else
+                            echo "No, cancel pull."
+                        fi
+
         fi
         cd ..
     done
@@ -47,3 +64,4 @@ else
      git checkout development
      cd ..
 fi
+
