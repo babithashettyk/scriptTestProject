@@ -75,7 +75,7 @@ fi
         else
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
             #trigger a mail to the admin about the mismatch in the commit revision
-            #mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+            mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
         fi
         
 #get the latest commit revision that the submodule is pointing to
