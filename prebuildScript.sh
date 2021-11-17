@@ -60,13 +60,13 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
         echo "$COMMIT_HITORY_FILE_PATH found."
     else
         echo "$COMMIT_HITORY_FILE_PATH not found."
-        cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict/>
-        </plist>
-        EOF
+cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict/>
+</plist>
+EOF
     fi
             
     
@@ -74,13 +74,13 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
         echo "$MAIL_SENT_TIME_PATH found."
     else
         echo "$MAIL_SENT_TIME_PATH not found."
-        cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
-        <?xml version="1.0" encoding="UTF-8"?>
-        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-        <plist version="1.0">
-        <dict/>
-        </plist>
-        EOF
+cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict/>
+</plist>
+EOF
     fi
 fi
 echo "submodule is already checked out"
@@ -108,8 +108,6 @@ for each in "${!submoduleList[@]}"
         eval "export $key='$val'"
         if [ -z "$val" ]; then
             current_time=$(date +%s)
-            echo "$current_time"
-            plutil -insert "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
         else
             current_time=$(date +%s)
@@ -117,9 +115,9 @@ for each in "${!submoduleList[@]}"
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
-                plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
             fi
         fi
+        plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
 fi
 
 COMMIT_HITORY_FILE_PATH="../BuildConfig/submoduleCommitHistory.plist"
