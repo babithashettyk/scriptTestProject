@@ -1,8 +1,9 @@
 #!/bin/bash
-#brew install jq
+
 BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
 MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
+MAIL_SENT_TIME_PATH="../BuildConfig/mailSentTimeDetail.plist"
 
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
@@ -59,21 +60,33 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
         echo "$COMMIT_HITORY_FILE_PATH found."
     else
         echo "$COMMIT_HITORY_FILE_PATH not found."
-cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict/>
-</plist>
-EOF
+        cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict/>
+        </plist>
+        EOF
     fi
-
-fi
+            
     
+    if [ -f "$MAIL_SENT_TIME_PATH" ]; then
+        echo "$MAIL_SENT_TIME_PATH found."
+    else
+        echo "$MAIL_SENT_TIME_PATH not found."
+        cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+        <plist version="1.0">
+        <dict/>
+        </plist>
+        EOF
+    fi
+fi
 echo "submodule is already checked out"
 
 #check the current working branch of each of the submodule
-    for each in "${!submoduleList[@]}"
+for each in "${!submoduleList[@]}"
     do
         cd ./${submoduleList[$each]}
         git checkout development
@@ -89,19 +102,41 @@ echo "submodule is already checked out"
         else
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
             #trigger a mail to the admin about the mismatch in the commit revision
+            
+        key="Time"
+        val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
+        eval "export $key='$val'"
+        if [ -z "$val" ]; then
+            current_time=$(date +%s)
+            echo "$current_time"
+            plutil -insert "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+        else
+            current_time=$(date +%s)
+            time_diff=$(( current_time - val))
+            hours=$((time_diff/3600))
+            if [ $hours -gt 20 ]; then
+                mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+                plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
+            fi
         fi
+fi
 
 COMMIT_HITORY_FILE_PATH="../BuildConfig/submoduleCommitHistory.plist"
 submoduleName="${submoduleList[$each]}"
+
+#get the commit revision value from the plist file for particular submodule
 val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$COMMIT_HITORY_FILE_PATH" )
 eval "export $submoduleName='$val'"
+
+#check if the commit revision value is stored in the plist file
 if [ -z "$val" ]; then
-    echo "null"
+    echo "commit revision of the latest built framework is not present in the plist file"
+#if not get the latest commit revision id that the submodule is pointing to
     submoduleCurrentBranchRevision=($(git rev-parse @))
     plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$COMMIT_HITORY_FILE_PATH"
 else
-    echo "not"
+    echo "plist file has the latest commit revision value that is used to build the framework"
     submoduleCurrentBranchRevision="$val"
 fi
 
@@ -117,6 +152,7 @@ fi
             if [ "$buttonResult" = "button returned:Yes" ]; then
                 echo "Yes, continue with partition."
                     git pull
+# once the changes is pulled to your system replace the old commit revision id with the new one using which your framework was built
                     submoduleLatestCommitRevision=($(git rev-parse @))
                     plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$COMMIT_HITORY_FILE_PATH"
                 else
@@ -125,5 +161,4 @@ fi
             fi
         cd ..
 done
-
 
