@@ -1,13 +1,13 @@
 #!/bin/bash
 #brew install jq
 BUILD_CONFIG_PATH="./BuildConfig"
+file="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+file1="../BuildConfig/mailRecipients.plist"
 
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
 mailToDeveloper() {
-PLISTPATH1="./BuildConfig/mailRecipients.plist"
-echo "$PLISTPATH1"
-#declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$PLISTPATH1" | sed -e 1d -e '$d'))
+declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$file1" | sed -e 1d -e '$d'))
 #echo "plist content:$FILE_ARRAY1"
 #FILE_ARRAY1=("babitha.shetty@globaldelight.com")
 osascript <<EOF
@@ -54,6 +54,10 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
      cd ./${submoduleList[$each]}
      git checkout development
      cd ..
+    if [ -f "$file" ]; then
+        echo "$file found."
+    else
+        echo "$file not found."
 cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -61,6 +65,7 @@ cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
 <dict/>
 </plist>
 EOF
+    fi
 
 fi
     echo "submodule is already checked out"
@@ -82,11 +87,24 @@ fi
         else
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
             #trigger a mail to the admin about the mismatch in the commit revision
-#            mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+            mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
         fi
-        
+
+file="../BuildConfig/submoduleCommitHistory.plist"
+submoduleName="${submoduleList[$each]}"
+val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$file" )
+eval "export $submoduleName='$val'"
+if [ -z "$val" ]; then
+    echo "null"
+    submoduleCurrentBranchRevision=($(git rev-parse @))
+    plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$file"
+else
+    echo "not"
+    submoduleCurrentBranchRevision="$val"
+fi
+
 #get the latest commit revision that the submodule is pointing to
-        submoduleCurrentBranchRevision=($(git rev-parse @))
+        
 #check if the commit revision of the current branch in the submodule of the main repo and in the submoule repo are same
         if [ "$repoCurrentBranchRevision" == "$submoduleCurrentBranchRevision" ]; then
             echo "Your submodule is up to date"
@@ -97,20 +115,13 @@ fi
             if [ "$buttonResult" = "button returned:Yes" ]; then
                 echo "Yes, continue with partition."
                     git pull
+                    submoduleLatestCommitRevision=($(git rev-parse @))
+                    plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$file"
                 else
                     echo "No, cancel pull."
                 fi
             fi
-            submoduleLatestCommitRevision=($(git rev-parse @))
         cd ..
-file="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
-submoduleName="${submoduleList[$each]}"
-val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$file" )
-eval "export $submoduleName='$val'"
-if [ -z "$val" ]; then
-    echo "null"
-    plutil -insert "$submoduleName" -string "$submoduleLatestCommitRevision" $BUILD_CONFIG_PATH/submoduleCommitHistory.plist
-else
-    echo "not"
-fi
 done
+
+
