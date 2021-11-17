@@ -80,7 +80,7 @@ cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
 <plist version="1.0">
 <dict>
 <key>Time</key>
-<dict/>
+</dict>
 </plist>
 EOF
     fi
