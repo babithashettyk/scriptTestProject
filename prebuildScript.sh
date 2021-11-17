@@ -1,15 +1,13 @@
 #!/bin/bash
 #brew install jq
 BUILD_CONFIG_PATH="./BuildConfig"
-file="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
-file1="../BuildConfig/mailRecipients.plist"
+COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
 
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
 mailToDeveloper() {
-declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$file1" | sed -e 1d -e '$d'))
-#echo "plist content:$FILE_ARRAY1"
-#FILE_ARRAY1=("babitha.shetty@globaldelight.com")
+declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
 osascript <<EOF
 tell application "Mail"
 
@@ -54,10 +52,13 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
      cd ./${submoduleList[$each]}
      git checkout development
      cd ..
-    if [ -f "$file" ]; then
-        echo "$file found."
+
+#check if submoduleCommitHistory.plist file exists or no
+#if not create the file
+    if [ -f "$COMMIT_HITORY_FILE_PATH" ]; then
+        echo "$COMMIT_HITORY_FILE_PATH found."
     else
-        echo "$file not found."
+        echo "$COMMIT_HITORY_FILE_PATH not found."
 cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -68,7 +69,8 @@ EOF
     fi
 
 fi
-    echo "submodule is already checked out"
+    
+echo "submodule is already checked out"
 
 #check the current working branch of each of the submodule
     for each in "${!submoduleList[@]}"
@@ -90,14 +92,14 @@ fi
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
         fi
 
-file="../BuildConfig/submoduleCommitHistory.plist"
+COMMIT_HITORY_FILE_PATH="../BuildConfig/submoduleCommitHistory.plist"
 submoduleName="${submoduleList[$each]}"
-val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$file" )
+val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$COMMIT_HITORY_FILE_PATH" )
 eval "export $submoduleName='$val'"
 if [ -z "$val" ]; then
     echo "null"
     submoduleCurrentBranchRevision=($(git rev-parse @))
-    plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$file"
+    plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$COMMIT_HITORY_FILE_PATH"
 else
     echo "not"
     submoduleCurrentBranchRevision="$val"
@@ -116,7 +118,7 @@ fi
                 echo "Yes, continue with partition."
                     git pull
                     submoduleLatestCommitRevision=($(git rev-parse @))
-                    plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$file"
+                    plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$COMMIT_HITORY_FILE_PATH"
                 else
                     echo "No, cancel pull."
                 fi
