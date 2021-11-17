@@ -35,7 +35,6 @@ EOF
 }
 
 
-
 #list the submodule under main repository
 IFS=$'\n'
 submoduleList=($(git submodule | awk '{ print $2 }'))
@@ -69,7 +68,8 @@ cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
 EOF
     fi
             
-    
+#check if mailSentTimeDetail.plist file exists or no
+#if not create the file
     if [ -f "$MAIL_SENT_TIME_PATH" ]; then
         echo "$MAIL_SENT_TIME_PATH found."
     else
@@ -101,23 +101,29 @@ for each in "${!submoduleList[@]}"
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is up to date with the main branch"
         else
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
-            #trigger a mail to the admin about the mismatch in the commit revision
             
+#get the time at which the mail was sent from the submoduleCommitHistory.plist file
         key="Time"
         val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
         eval "export $key='$val'"
+#check if the file does not contain the time the mail sent
+#this condition will be true only at the time the plist file was created initially
         if [ -z "$val" ]; then
             current_time=$(date +%s)
+#trigger a mail
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+            plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
         else
+#otherwise get the current time and check if the time at which mail sent was 20 hrs ago, if true then send mail again
             current_time=$(date +%s)
             time_diff=$(( current_time - val))
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
+#trigger a mail to the admin about the mismatch in the commit revision
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
+                plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
             fi
         fi
-        plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
 fi
 
 COMMIT_HITORY_FILE_PATH="../BuildConfig/submoduleCommitHistory.plist"
@@ -130,6 +136,7 @@ eval "export $submoduleName='$val'"
 #check if the commit revision value is stored in the plist file
 if [ -z "$val" ]; then
     echo "commit revision of the latest built framework is not present in the plist file"
+    
 #if not get the latest commit revision id that the submodule is pointing to
     submoduleCurrentBranchRevision=($(git rev-parse @))
     plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$COMMIT_HITORY_FILE_PATH"
@@ -137,8 +144,6 @@ else
     echo "plist file has the latest commit revision value that is used to build the framework"
     submoduleCurrentBranchRevision="$val"
 fi
-
-#get the latest commit revision that the submodule is pointing to
         
 #check if the commit revision of the current branch in the submodule of the main repo and in the submoule repo are same
         if [ "$repoCurrentBranchRevision" == "$submoduleCurrentBranchRevision" ]; then
