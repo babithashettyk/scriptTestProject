@@ -12,10 +12,8 @@ flag=0
 
 git fetch --all
 echo "pulling"
-git checkout origin/main -- "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
-git add "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
-git commit -m "updated"
-git push
+git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
+
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
@@ -166,6 +164,7 @@ fi
             if [ "$buttonResult" = "button returned:Yes" ]; then
                 echo "Yes, continue with partition."
                     git pull
+                    
 # once the changes is pulled to your system replace the old commit revision id with the new one using which your framework was built
                     submoduleLatestCommitRevision=($(git rev-parse @))
                     plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$COMMIT_HITORY_FILE_PATH"

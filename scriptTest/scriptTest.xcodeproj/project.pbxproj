@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7958564727422508005F3059 /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
-		798B8017274265A000290C6C /* framework1.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7994C58D274E0EFF00C9B2DF /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
 		79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */; };
 		79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F17273E1B6700FEDD54 /* ViewController.swift */; };
 		79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CA7F19273E1B6800FEDD54 /* Assets.xcassets */; };
@@ -16,13 +15,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7946E23127423F6C00D3D6CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 79CA7F2E273E1B8C00FEDD54;
-			remoteInfo = framework1;
-		};
 		7958563F274224C7005F3059 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
@@ -46,7 +38,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				798B8017274265A000290C6C /* framework1.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7958564727422508005F3059 /* framework1.framework in Frameworks */,
+				7994C58D274E0EFF00C9B2DF /* framework1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +130,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7946E23227423F6C00D3D6CC /* PBXTargetDependency */,
 			);
 			name = scriptTest;
 			productName = scriptTest;
@@ -224,14 +214,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		7946E23227423F6C00D3D6CC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = framework1;
-			targetProxy = 7946E23127423F6C00D3D6CC /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		79CA7F1B273E1B6800FEDD54 /* Main.storyboard */ = {
