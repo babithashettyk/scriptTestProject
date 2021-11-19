@@ -122,6 +122,9 @@ for each in "${!submoduleList[@]}"
 #trigger a mail to the admin about the mismatch in the commit revision
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
+                git add "$MAIL_SENT_TIME_PATH"
+                git commit -m "updated mail sent file"
+                git push 
             fi
         fi
 fi
