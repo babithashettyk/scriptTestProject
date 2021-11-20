@@ -124,7 +124,7 @@ for each in "${!submoduleList[@]}"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
                 git add "$MAIL_SENT_TIME_PATH"
                 git commit -m "updated mail sent file"
-                git push 
+                git push origin main
             fi
         fi
 fi
