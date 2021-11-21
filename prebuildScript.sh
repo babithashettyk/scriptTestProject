@@ -4,9 +4,14 @@ BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
 MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
 MAIL_SENT_TIME_PATH="../BuildConfig/mailSentTimeDetail.plist"
-
+flag=0
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
+
+
+git fetch
+git checkout origin/master -- "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
 osascript <<EOF
@@ -122,9 +127,7 @@ for each in "${!submoduleList[@]}"
 #trigger a mail to the admin about the mismatch in the commit revision
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
-                git add "$MAIL_SENT_TIME_PATH"
-                git commit -m "updated mail sent file"
-                git push origin main
+                flag=1
             fi
         fi
 fi
@@ -167,4 +170,14 @@ fi
             fi
         cd ..
 done
+if [ flag -eq 1 ]; then
+    echo "changed!!"
+    git add "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
+    git commit -m "updated mail sent file"
+    git push origin main
+else
+    echo "not changed!!"
+    
+fi
+    
 
