@@ -10,9 +10,9 @@ flag=0
 #$2 is the current branch that submodule is keeping track of
 
 
-git fetch --all
-echo "pulling"
-git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
+#git fetch --all
+#echo "pulling"
+#git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 
 
 mailToDeveloper() {
@@ -108,26 +108,31 @@ for each in "${!submoduleList[@]}"
         if [ "$repoCurrentBranchRevision" == "$repoMainBranchRevision" ]; then
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is up to date with the main branch"
         else
+            echo "one"
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
-            
+            echo "two"
 #get the time at which the mail was sent from the submoduleCommitHistory.plist file
         key="Time"
         val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
         eval "export $key='$val'"
+        echo "three"
 #check if the file does not contain the time the mail sent
 #this condition will be true only at the time the plist file was created initially
         if [ -z "$val" ]; then
             current_time=$(date +%s)
+            echo "four"
 #trigger a mail
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
             plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
         else
+            echo "five"
 #otherwise get the current time and check if the time at which mail sent was 20 hrs ago, if true then send mail again
             current_time=$(date +%s)
             time_diff=$(( current_time - val))
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
 #trigger a mail to the admin about the mismatch in the commit revision
+                echo "six"
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
                 flag=1
