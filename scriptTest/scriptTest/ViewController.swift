@@ -21,7 +21,7 @@ class ViewController: NSViewController {
         }
     }
     func myFunc(){
-        print("in view Controller values")
+        print("in view Controller")
     }
 
 }
