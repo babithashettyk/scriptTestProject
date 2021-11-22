@@ -14,6 +14,7 @@ flag=0
 #echo "pulling"
 #git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 
+git pull
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
