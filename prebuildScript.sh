@@ -1,5 +1,7 @@
 #!/bin/bash
 
+brew install jq
+
 BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
 MAIL_TIME_HISTORY_PATH="$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
@@ -9,12 +11,6 @@ flag=0
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
 
-
-#git fetch --all
-#echo "pulling"
-#git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
-
-git pull
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
@@ -80,7 +76,7 @@ EOF
 #check if mailSentTimeDetail.plist file exists or no
 #if not create the file
     if [ -f "$MAIL_TIME_HISTORY_PATH" ]; then
-        echo "$MAIL_TIME_HISTORY_PATHfound."
+        echo "$MAIL_TIME_HISTORY_PATH found."
     else
         echo "$MAIL_TIME_HISTORY_PATH not found."
 cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
@@ -109,31 +105,27 @@ for each in "${!submoduleList[@]}"
         if [ "$repoCurrentBranchRevision" == "$repoMainBranchRevision" ]; then
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is up to date with the main branch"
         else
-            echo "one"
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
-            echo "two"
 #get the time at which the mail was sent from the submoduleCommitHistory.plist file
         key="Time"
         val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
         eval "export $key='$val'"
-        echo "three"
 #check if the file does not contain the time the mail sent
 #this condition will be true only at the time the plist file was created initially
         if [ -z "$val" ]; then
-            current_time=$(date +%s)
-            echo "four"
+            current_time=$(curl -s 'http://worldtimeapi.org/api/timezone/Asia/Kolkata' | \
+    python3 -c "import sys, json; print(json.load(sys.stdin)['unixtime'])")
 #trigger a mail
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
             plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
         else
-            echo "five"
 #otherwise get the current time and check if the time at which mail sent was 20 hrs ago, if true then send mail again
-            current_time=$(date +%s)
+            current_time=$(curl -s 'http://worldtimeapi.org/api/timezone/Asia/Kolkata' | \
+    python3 -c "import sys, json; print(json.load(sys.stdin)['unixtime'])")
             time_diff=$(( current_time - val))
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
 #trigger a mail to the admin about the mismatch in the commit revision
-                echo "six"
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
                 flag=1
