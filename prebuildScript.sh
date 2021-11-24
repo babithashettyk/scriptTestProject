@@ -1,16 +1,15 @@
 #!/bin/bash
 
-brew install jq
-
 BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
 MAIL_TIME_HISTORY_PATH="$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
 MAIL_SENT_TIME_PATH="../BuildConfig/mailSentTimeDetail.plist"
 flag=0
+
+
 #$1 is the submodule name
 #$2 is the current branch that submodule is keeping track of
-
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
@@ -108,11 +107,14 @@ for each in "${!submoduleList[@]}"
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
 #get the time at which the mail was sent from the submoduleCommitHistory.plist file
         key="Time"
+        echo "one"
         val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
         eval "export $key='$val'"
+        echo "my value...$val"
 #check if the file does not contain the time the mail sent
 #this condition will be true only at the time the plist file was created initially
         if [ -z "$val" ]; then
+#getting the current timestamp using worldtime api
             current_time=$(curl -s 'http://worldtimeapi.org/api/timezone/Asia/Kolkata' | \
     python3 -c "import sys, json; print(json.load(sys.stdin)['unixtime'])")
 #trigger a mail
@@ -122,6 +124,8 @@ for each in "${!submoduleList[@]}"
 #otherwise get the current time and check if the time at which mail sent was 20 hrs ago, if true then send mail again
             current_time=$(curl -s 'http://worldtimeapi.org/api/timezone/Asia/Kolkata' | \
     python3 -c "import sys, json; print(json.load(sys.stdin)['unixtime'])")
+
+#calculate the time difference between the last mail sent timestamp to the current timestamp if the difference is more than 20 hrs trigger a mail again
             time_diff=$(( current_time - val))
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
@@ -152,7 +156,7 @@ else
     submoduleCurrentBranchRevision="$val"
 fi
         
-#check if the commit revision of the current branch in the submodule of the main repo and in the submoule repo are same
+#check if the commit revision of the current branch in the submodule and in the submoule repo are same
         if [ "$repoCurrentBranchRevision" == "$submoduleCurrentBranchRevision" ]; then
             echo "Your submodule is up to date"
                 
