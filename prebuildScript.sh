@@ -10,9 +10,9 @@ flag=0
 #$2 is the current branch that submodule is keeping track of
 
 
-#git fetch --all
-#echo "pulling"
-#git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
+git fetch --all
+echo "pulling"
+git checkout origin/main -- "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 
 
 mailToDeveloper() {
