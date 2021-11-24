@@ -100,7 +100,7 @@ for each in "${!submoduleList[@]}"
         repoCurrentBranchRevision=($(git ls-remote ${submodulePathList[$each]} refs/heads/$submoduleBranch | awk '{print $1}'))
         repoMainBranchRevision=($(git ls-remote ${submodulePathList[$each]} refs/heads/main | awk '{print $1}'))
         
-#check if the master branch commit revision and development branch commit revision are equal if not then trigger a mail to the admin
+#check if the master branch commit revision and development branch commit revision are equal if not then trigger a mail to the developers
         if [ "$repoCurrentBranchRevision" == "$repoMainBranchRevision" ]; then
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is up to date with the main branch"
         else
@@ -121,7 +121,7 @@ for each in "${!submoduleList[@]}"
             mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
             plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
         else
-#otherwise get the current time and check if the time at which mail sent was 20 hrs ago, if true then send mail again
+#otherwise get the current time using an api and check if the time at which mail sent was 20 hrs ago, if true then send mail again
             current_time=$(curl -s 'http://worldtimeapi.org/api/timezone/Asia/Kolkata' | \
     python3 -c "import sys, json; print(json.load(sys.stdin)['unixtime'])")
 
@@ -176,6 +176,8 @@ fi
             fi
         cd ..
 done
+
+#if the mail is triggered, then the plist file gets updated so push the mailSentTimeDetail.plist to the git
 if [ "$flag" -eq 1 ]; then
     echo "changed!!"
     git add "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"

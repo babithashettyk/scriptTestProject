@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>framework1</key>
+	<string>0303f5fe786dbcc938841fb5007b3170b4aacb06</string>
+	<key>framework2</key>
+	<string>8fafa0bef44c01c5ebae9f6ac093f9a05adf42bd</string>
+</dict>
 </plist>
