@@ -1,8 +1,8 @@
 #!/bin/bash
 
 BUILD_CONFIG_PATH="./BuildConfig"
-COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
-MAIL_TIME_HISTORY_PATH="$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
+COMMIT_HITORY_FILE_ROOT_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+MAIL_TIME_HISTORY_ROOT_PATH="$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
 MAIL_SENT_TIME_PATH="../BuildConfig/mailSentTimeDetail.plist"
 flag=0
@@ -59,10 +59,10 @@ if ! [ "$(ls -A ${submoduleList[0]})" ]; then
 
 #check if submoduleCommitHistory.plist file exists or no
 #if not create the file
-    if [ -f "$COMMIT_HITORY_FILE_PATH" ]; then
-        echo "$COMMIT_HITORY_FILE_PATH found."
+    if [ -f "$COMMIT_HITORY_FILE_ROOT_PATH" ]; then
+        echo "$COMMIT_HITORY_FILE_ROOT_PATH found."
     else
-        echo "$COMMIT_HITORY_FILE_PATH not found."
+        echo "$COMMIT_HITORY_FILE_ROOT_PATH not found."
 cat > $BUILD_CONFIG_PATH/submoduleCommitHistory.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -74,10 +74,10 @@ EOF
             
 #check if mailSentTimeDetail.plist file exists or no
 #if not create the file
-    if [ -f "$MAIL_TIME_HISTORY_PATH" ]; then
-        echo "$MAIL_TIME_HISTORY_PATH found."
+    if [ -f "$MAIL_TIME_HISTORY_ROOT_PATH" ]; then
+        echo "$MAIL_TIME_HISTORY_ROOT_PATH found."
     else
-        echo "$MAIL_TIME_HISTORY_PATH not found."
+        echo "$MAIL_TIME_HISTORY_ROOT_PATH not found."
 cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -137,11 +137,11 @@ for each in "${!submoduleList[@]}"
         fi
 fi
 
-COMMIT_HITORY_FILE_PATH="../BuildConfig/submoduleCommitHistory.plist"
+COMMIT_HITORY_FILE_ROOT_PATH="../BuildConfig/submoduleCommitHistory.plist"
 submoduleName="${submoduleList[$each]}"
 
 #get the commit revision value from the plist file for particular submodule
-val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$COMMIT_HITORY_FILE_PATH" )
+val=$( /usr/libexec/PlistBuddy -c "Print $submoduleName" "$COMMIT_HITORY_FILE_ROOT_PATH" )
 eval "export $submoduleName='$val'"
 
 #check if the commit revision value is stored in the plist file
@@ -150,7 +150,7 @@ if [ -z "$val" ]; then
     
 #if not get the latest commit revision id that the submodule is pointing to
     submoduleCurrentBranchRevision=($(git rev-parse @))
-    plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$COMMIT_HITORY_FILE_PATH"
+    plutil -insert "$submoduleName" -string "$submoduleCurrentBranchRevision" "$COMMIT_HITORY_FILE_ROOT_PATH"
 else
     echo "plist file has the latest commit revision value that is used to build the framework"
     submoduleCurrentBranchRevision="$val"
@@ -169,7 +169,7 @@ fi
                     
 # once the changes is pulled to your system replace the old commit revision id with the new one using which your framework was built
                     submoduleLatestCommitRevision=($(git rev-parse @))
-                    plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$COMMIT_HITORY_FILE_PATH"
+                    plutil -replace "$submoduleName" -string "$submoduleLatestCommitRevision" "$COMMIT_HITORY_FILE_ROOT_PATH"
                 else
                     echo "No, cancel pull."
                 fi
