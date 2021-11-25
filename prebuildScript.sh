@@ -2,6 +2,7 @@
 
 BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+MAIL_TIME_HISTORY_PATH="$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
 MAILRECEPIENTS_FILE_PATH="../BuildConfig/mailRecipients.plist"
 MAIL_SENT_TIME_PATH="../BuildConfig/mailSentTimeDetail.plist"
 flag=0
@@ -75,10 +76,10 @@ EOF
             
 #check if mailSentTimeDetail.plist file exists or no
 #if not create the file
-    if [ -f "$MAIL_SENT_TIME_PATH" ]; then
-        echo "$MAIL_SENT_TIME_PATH found."
+    if [ -f "$MAIL_TIME_HISTORY_PATH" ]; then
+        echo "$MAIL_TIME_HISTORY_PATHfound."
     else
-        echo "$MAIL_SENT_TIME_PATH not found."
+        echo "$MAIL_TIME_HISTORY_PATH not found."
 cat > $BUILD_CONFIG_PATH/mailSentTimeDetail.plist <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
