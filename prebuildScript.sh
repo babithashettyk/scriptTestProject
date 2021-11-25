@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 BUILD_CONFIG_PATH="./BuildConfig"
 COMMIT_HITORY_FILE_ROOT_PATH="$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
@@ -128,7 +128,7 @@ for each in "${!submoduleList[@]}"
             time_diff=$(( current_time - val))
             hours=$((time_diff/3600))
             if [ $hours -gt 20 ]; then
-#trigger a mail to the admin about the mismatch in the commit revision
+#trigger a mail to the devloper about the mismatch in the commit revision
                 mailToDeveloper "${submoduleList[$each]}" "$submoduleBranch"
                 plutil -replace "$key" -string "$current_time" "$MAIL_SENT_TIME_PATH"
                 flag=1
