@@ -10,7 +10,7 @@ flag=0
 
 
 git fetch
-git checkout origin/master -- "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+git checkout origin/main -- "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
@@ -170,14 +170,13 @@ fi
             fi
         cd ..
 done
-if [ flag -eq 1 ]; then
+if [ "$flag" -eq 1 ]; then
     echo "changed!!"
     git add "$BUILD_CONFIG_PATH/mailSentTimeDetail.plist"
     git commit -m "updated mail sent file"
     git push origin main
 else
     echo "not changed!!"
-    
 fi
     
 
