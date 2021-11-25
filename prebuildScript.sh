@@ -107,10 +107,9 @@ for each in "${!submoduleList[@]}"
             echo "The $submoduleBranch branch of ${submoduleList[$each]} repo is not up to date with the main branch"
 #get the time at which the mail was sent from the submoduleCommitHistory.plist file
         key="Time"
-        echo "one"
         val=$( /usr/libexec/PlistBuddy -c "Print $key" "$MAIL_SENT_TIME_PATH" )
         eval "export $key='$val'"
-        echo "my value...$val"
+        
 #check if the file does not contain the time the mail sent
 #this condition will be true only at the time the plist file was created initially
         if [ -z "$val" ]; then
@@ -164,7 +163,7 @@ fi
 #if not display a dialog asking the user to pull the latest commit to the submodule
             buttonResult="$(osascript -e 'display dialog "Your submodule is not up to date. Do you ant to pull the changes?" buttons {"Yes", "No"}')"
             if [ "$buttonResult" = "button returned:Yes" ]; then
-                echo "Yes, continue with partition."
+                echo "Yes, continue with pull."
                     git pull
                     
 # once the changes is pulled to your system replace the old commit revision id with the new one using which your framework was built
