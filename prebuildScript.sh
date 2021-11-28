@@ -13,6 +13,9 @@ flag=0
 git fetch --all
 echo "pulling"
 git checkout origin/main -- "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+git add "$BUILD_CONFIG_PATH/submoduleCommitHistory.plist"
+git commit -m "updated"
+git push
 
 mailToDeveloper() {
 declare -a FILE_ARRAY1=($(/usr/libexec/PlistBuddy -c "Print" "$MAILRECEPIENTS_FILE_PATH" | sed -e 1d -e '$d'))
