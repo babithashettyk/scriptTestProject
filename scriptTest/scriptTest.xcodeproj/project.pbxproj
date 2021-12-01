@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7994C58D274E0EFF00C9B2DF /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79585640274224C7005F3059 /* framework1.framework */; };
+		794A77EF2757A99400DF858E /* TestClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794A77E42757A99400DF858E /* TestClass.swift */; };
+		794A77F02757A99400DF858E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 794A77E52757A99400DF858E /* Info.plist */; };
+		794A77F12757A99400DF858E /* framework1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794A77E72757A99400DF858E /* framework1Tests.swift */; };
+		794A77F22757A99400DF858E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 794A77E82757A99400DF858E /* Info.plist */; };
+		794A77F32757A9C300DF858E /* framework1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 794A77EC2757A99400DF858E /* framework1.framework */; };
 		79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */; };
 		79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA7F17273E1B6700FEDD54 /* ViewController.swift */; };
 		79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79CA7F19273E1B6800FEDD54 /* Assets.xcassets */; };
@@ -15,16 +19,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7958563F274224C7005F3059 /* PBXContainerItemProxy */ = {
+		794A77EB2757A99400DF858E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
+			containerPortal = 794A77DF2757A99400DF858E /* framework1.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 79CA7F2F273E1B8C00FEDD54;
 			remoteInfo = framework1;
 		};
-		79585641274224C7005F3059 /* PBXContainerItemProxy */ = {
+		794A77ED2757A99400DF858E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
+			containerPortal = 794A77DF2757A99400DF858E /* framework1.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 79CA7F38273E1B8C00FEDD54;
 			remoteInfo = framework1Tests;
@@ -44,7 +48,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7958563A274224C7005F3059 /* framework1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = framework1.xcodeproj; path = ../../framework1/framework1/framework1.xcodeproj; sourceTree = "<group>"; };
+		794A77DF2757A99400DF858E /* framework1.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = framework1.xcodeproj; sourceTree = "<group>"; };
+		794A77E32757A99400DF858E /* framework1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = framework1.h; sourceTree = "<group>"; };
+		794A77E42757A99400DF858E /* TestClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestClass.swift; sourceTree = "<group>"; };
+		794A77E52757A99400DF858E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		794A77E72757A99400DF858E /* framework1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = framework1Tests.swift; sourceTree = "<group>"; };
+		794A77E82757A99400DF858E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		795C0B4827424459007258FD /* prebuildScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = prebuildScript.sh; path = ../prebuildScript.sh; sourceTree = "<group>"; };
 		79CA7F12273E1B6700FEDD54 /* scriptTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = scriptTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,20 +69,50 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7994C58D274E0EFF00C9B2DF /* framework1.framework in Frameworks */,
+				794A77F32757A9C300DF858E /* framework1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7958563B274224C7005F3059 /* Products */ = {
+		794A77DE2757A99400DF858E /* framework1 */ = {
 			isa = PBXGroup;
 			children = (
-				79585640274224C7005F3059 /* framework1.framework */,
-				79585642274224C7005F3059 /* framework1Tests.xctest */,
+				794A77DF2757A99400DF858E /* framework1.xcodeproj */,
+				794A77E22757A99400DF858E /* framework1 */,
+				794A77E62757A99400DF858E /* framework1Tests */,
+			);
+			name = framework1;
+			path = ../framework1/framework1;
+			sourceTree = "<group>";
+		};
+		794A77E02757A99400DF858E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				794A77EC2757A99400DF858E /* framework1.framework */,
+				794A77EE2757A99400DF858E /* framework1Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		794A77E22757A99400DF858E /* framework1 */ = {
+			isa = PBXGroup;
+			children = (
+				794A77E32757A99400DF858E /* framework1.h */,
+				794A77E42757A99400DF858E /* TestClass.swift */,
+				794A77E52757A99400DF858E /* Info.plist */,
+			);
+			path = framework1;
+			sourceTree = "<group>";
+		};
+		794A77E62757A99400DF858E /* framework1Tests */ = {
+			isa = PBXGroup;
+			children = (
+				794A77E72757A99400DF858E /* framework1Tests.swift */,
+				794A77E82757A99400DF858E /* Info.plist */,
+			);
+			path = framework1Tests;
 			sourceTree = "<group>";
 		};
 		7958564627422508005F3059 /* Frameworks */ = {
@@ -87,6 +126,7 @@
 		79CA7F09273E1B6700FEDD54 = {
 			isa = PBXGroup;
 			children = (
+				794A77DE2757A99400DF858E /* framework1 */,
 				79CA7F14273E1B6700FEDD54 /* scriptTest */,
 				79CA7F13273E1B6700FEDD54 /* Products */,
 				7958564627422508005F3059 /* Frameworks */,
@@ -104,7 +144,6 @@
 		79CA7F14273E1B6700FEDD54 /* scriptTest */ = {
 			isa = PBXGroup;
 			children = (
-				7958563A274224C7005F3059 /* framework1.xcodeproj */,
 				79CA7F15273E1B6700FEDD54 /* AppDelegate.swift */,
 				79CA7F17273E1B6700FEDD54 /* ViewController.swift */,
 				79CA7F19273E1B6800FEDD54 /* Assets.xcassets */,
@@ -163,8 +202,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 7958563B274224C7005F3059 /* Products */;
-					ProjectRef = 7958563A274224C7005F3059 /* framework1.xcodeproj */;
+					ProductGroup = 794A77E02757A99400DF858E /* Products */;
+					ProjectRef = 794A77DF2757A99400DF858E /* framework1.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -175,18 +214,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		79585640274224C7005F3059 /* framework1.framework */ = {
+		794A77EC2757A99400DF858E /* framework1.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = framework1.framework;
-			remoteRef = 7958563F274224C7005F3059 /* PBXContainerItemProxy */;
+			remoteRef = 794A77EB2757A99400DF858E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		79585642274224C7005F3059 /* framework1Tests.xctest */ = {
+		794A77EE2757A99400DF858E /* framework1Tests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = framework1Tests.xctest;
-			remoteRef = 79585641274224C7005F3059 /* PBXContainerItemProxy */;
+			remoteRef = 794A77ED2757A99400DF858E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -196,8 +235,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				794A77F22757A99400DF858E /* Info.plist in Resources */,
 				79CA7F1A273E1B6800FEDD54 /* Assets.xcassets in Resources */,
 				79CA7F1D273E1B6800FEDD54 /* Main.storyboard in Resources */,
+				794A77F02757A99400DF858E /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +250,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				79CA7F18273E1B6700FEDD54 /* ViewController.swift in Sources */,
+				794A77EF2757A99400DF858E /* TestClass.swift in Sources */,
+				794A77F12757A99400DF858E /* framework1Tests.swift in Sources */,
 				79CA7F16273E1B6700FEDD54 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
